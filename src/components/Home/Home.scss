@@ -1,0 +1,31 @@
+.home {
+    .main-blocks{
+        .block {
+            border-width: 1px !important;
+            border-style: solid !important;
+            border-color: rgba(0, 0, 0, 0.02) !important;
+            border-image: initial !important;
+            border-radius: 12px !important;
+            -webkit-box-direction: normal !important;
+            -webkit-box-orient: horizontal !important;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px !important;
+            white-space: normal;
+            padding: 5px 10px;
+            transition: 0.3s;
+            cursor: pointer ;
+            &:hover{
+                box-shadow: rgba(0, 0, 0, 0.45) 0px 2px 8px !important;
+            }
+            a{
+                color : unset;
+                text-decoration: none;
+            }
+            .bg-image{
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 14rem;
+            }
+        }
+    }
+}

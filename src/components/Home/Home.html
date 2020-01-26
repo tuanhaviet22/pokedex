@@ -1,0 +1,24 @@
+<section class="home">
+  <!-- <div class="loop text-danger" v-for="item in data" v-bind:key="item.name">
+    <div>
+        {{item}}
+    </div>
+  </div> -->
+  <div class="container">
+    <div class="main-blocks">
+      <div class="row">
+        <div class="col-md-3 mt-3 mb-3" v-for='item in info' >
+          <div class="block">
+            <a :href="item.url">
+              <div class="bg-image"
+              v-bind:style="{ backgroundImage: 'url(' + item.image + ')' }"></div>
+              <div class="info">
+                <div class="name">{{item.name}}</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
