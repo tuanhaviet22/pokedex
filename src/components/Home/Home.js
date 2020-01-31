@@ -8,25 +8,31 @@ export default {
   ],
   data() {
     return {
-      info: null
-    }
-  },
-  watch : {
-    info(){
-      this.loadDetail()
+      info: []
     }
   },
   computed: {
-   
+
   },
- 
+
   created() {
-    this.getList()
+    // this.getList()
   },
   mounted() {
-    //  this.$axios
-    // .get(this.$api.pokeapi + 'pokemon?limit=10')
-    // .then(response => (this.info = response.data.results))
+    const vm = this;
+    this.$axios
+      .get(this.$api.pokeapi + 'pokemon?limit=100')
+      .then(function (res) {
+        res.data.results.forEach(item => {
+          vm.$axios
+            .get(item.url)
+            .then(function (resp) {
+              item.detail = resp.data
+              item.image = 'https://pokeres.bastionbot.org/images/pokemon/'+ resp.data.id + ".png"
+              vm.info.push(item)
+            })
+        })
+      })
     // .then( ()=> {
     //   this.info.forEach(item => {
     //     this.$axios
@@ -45,31 +51,37 @@ export default {
 
   },
   methods: {
-    getList: function () {
-      const vm = this
-      this.$axios
-        .get(this.$api.pokeapi + 'pokemon?limit=10')
-        .then(response => (vm.info = response.data.results));
-    },
-    loadDetail: function () {
-      this.info.forEach(item => {
-        var detailUrl = item.url
-        this.getDetail(detailUrl)
-      })
-    },
-    getDetail: function (url) {
-      this.$axios.get(url).then(res => {     
-        this.mapDetailToInfo(res.data)
-      })
-    },
-    mapDetailToInfo: function (res) {
-      this.info = this.info.map(item => {
-        item.detail = res
-      })
-      this.info = res
-    }
-    // handleData : function(){
-    //   this.$set(this.info)
-    // }
-  }
+    // getList: function () {
+    //   const vm = this
+    //   this.$axios
+    //     .get(this.$api.pokeapi + 'pokemon?limit=10')
+    //     .then(response => (vm.info = response.data.results));
+    // },
+    // loadDetail: function () {
+    //   this.info.forEach(item => {
+    //     var detailUrl = item.url
+    //     this.$axios.get(detailUrl).then(res => {
+    //       item.detail = res.data
+    //     });
+    //     // item['detail'] = this.getDetail(detailUrl);
+    //     // console.log(this.getDetail(detailUrl))
+    //   })
+    // },
+    // getDetail: function (url) {
+
+    //   this.$axios.get(url).then(res => {
+    //     this.temp = res.data
+    //   });
+    //   return this.temp
+  },
+  // mapDetailToInfo: function (res) {
+  //   this.info = this.info.map(item => {
+  //     item.detail = res
+  //   })
+  //   this.info = res
+  // }
+  // handleData : function(){
+  //   this.$set(this.info)
+  // }
+  // }
 }
